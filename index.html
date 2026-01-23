@@ -1,11 +1,144 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Vitamin Site</title>
+  <title>Vitamin Shop</title>
+
+  <!-- Иконки -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f6f6f6;
+      color: #111;
+    }
+
+    header {
+      background: #111;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    header nav i {
+      margin-left: 15px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, #111, #333);
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .hero p {
+      margin-top: 10px;
+      opacity: 0.8;
+    }
+
+    .catalog {
+      padding: 20px;
+    }
+
+    .catalog h2 {
+      margin-bottom: 15px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card i {
+      font-size: 30px;
+      margin-bottom: 10px;
+      color: #111;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #888;
+      font-size: 14px;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Мой сайт работает 💊🔥</h1>
-  <p>GitHub Pages без настроек</p>
+
+<header>
+  <div class="logo">💊 Vitamin Shop</div>
+  <nav>
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-cart-shopping"></i>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Спортивные витамины</h1>
+  <p>Энергия • Сила • Здоровье</p>
+</section>
+
+<section class="catalog">
+  <h2>Каталог</h2>
+
+  <div class="grid">
+    <div class="card">
+      <i class="fa-solid fa-capsules"></i>
+      <p>Витамины</p>
+    </div>
+
+    <div class="card">
+      <i class="fa-solid fa-dumbbell"></i>
+      <p>Протеин</p>
+    </div>
+
+    <div class="card">
+      <i class="fa-solid fa-bolt"></i>
+      <p>Энергия</p>
+    </div>
+
+    <div class="card">
+      <i class="fa-solid fa-heart"></i>
+      <p>Здоровье</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Vitamin Shop
+</footer>
+
 </body>
 </html>
