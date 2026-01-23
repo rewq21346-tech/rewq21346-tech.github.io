@@ -3,133 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <title>Vitamin Shop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f6f6f6;
+:root{
+  --green:#1db954;
+  --dark:#1a1a1a;
+  --gray:#2a2a2a;
+  --bg:#f4f6f5;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  color:#111;
 }
 
 /* HEADER */
-header {
-  background: #111;
-  color: #fff;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+header{
+  background:var(--dark);
+  color:#fff;
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:100;
 }
 
-.logo {
-  font-weight: bold;
-  font-size: 18px;
+.logo{font-weight:bold;font-size:18px}
+
+.cart-btn{
+  cursor:pointer;
+  font-size:18px;
+  position:relative;
 }
 
-.cart-btn {
-  cursor: pointer;
-  font-size: 20px;
+.cart-btn span{
+  background:var(--green);
+  padding:2px 6px;
+  border-radius:50%;
+  font-size:12px;
+  margin-left:5px;
 }
 
-/* CATALOG MENU */
-.catalog-menu {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  background: #fff;
-  padding: 15px;
+/* CATALOG */
+.catalog-main{
+  background:#fff;
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  padding:15px;
 }
 
-.catalog-menu button {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 20px;
-  background: #111;
-  color: #fff;
-  cursor: pointer;
+.catalog-main button{
+  background:none;
+  border:none;
+  font-size:16px;
+  cursor:pointer;
+  position:relative;
 }
 
-/* SUBMENU */
-.submenu {
-  display: none;
-  justify-content: center;
-  gap: 15px;
-  margin: 15px 0;
+.catalog-main button::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-5px;
+  width:0;
+  height:2px;
+  background:var(--green);
+  transition:.3s;
 }
 
-.submenu button {
-  padding: 8px 14px;
-  border-radius: 15px;
-  border: none;
-  background: #ddd;
-  cursor: pointer;
+.catalog-main button:hover::after{
+  width:100%;
+}
+
+/* SUBCAT */
+.subcat{
+  display:none;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  padding:15px;
+  animation:fade .3s ease;
+}
+
+.subcat button{
+  padding:8px 14px;
+  border-radius:20px;
+  border:none;
+  background:#e0e0e0;
+  cursor:pointer;
 }
 
 /* PROMO */
-.promo {
-  margin: 30px 20px;
-  padding: 20px;
-  background: #111;
-  color: white;
-  text-align: center;
-  border-radius: 10px;
+.promo{
+  margin:30px 20px;
+  padding:20px;
+  background:linear-gradient(90deg,var(--green),#3ddc84);
+  color:#fff;
+  border-radius:12px;
+  text-align:center;
+  font-weight:bold;
 }
 
 /* PRODUCTS */
-.products {
-  padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-  gap: 15px;
+.products{
+  padding:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
 }
 
-.card {
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  text-align: center;
+.card{
+  background:#fff;
+  border-radius:12px;
+  padding:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,.08);
+  transition:.3s;
 }
 
-.card button {
-  margin-top: 10px;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 8px;
-  background: #111;
-  color: white;
-  cursor: pointer;
+.card:hover{transform:translateY(-5px)}
+
+.card button{
+  margin-top:10px;
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(90deg,var(--green),#3ddc84);
+  color:#fff;
+  cursor:pointer;
 }
 
 /* CART */
-#cart {
-  position: fixed;
-  top: 70px;
-  right: 20px;
-  width: 320px;
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  display: none;
+#cart{
+  position:fixed;
+  inset:0;
+  background:#fff;
+  padding:20px;
+  display:none;
+  flex-direction:column;
+  z-index:200;
+  animation:slideUp .3s ease;
 }
 
-.cart-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
+#cart h2{margin-top:0}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.qty button{
+  padding:3px 8px;
+}
+
+.total{
+  margin-top:auto;
+  font-weight:bold;
+}
+
+.order-btn{
+  margin-top:15px;
+  padding:12px;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(90deg,var(--green),#3ddc84);
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
 }
 
 /* MOBILE */
-@media (max-width: 768px) {
-  .products {
-    grid-template-columns: 1fr;
-  }
-  #cart {
-    width: 90%;
-    right: 5%;
-  }
+@media(max-width:768px){
+  .catalog-main{gap:15px}
 }
+
+/* ANIM */
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 </style>
 </head>
 
@@ -137,90 +199,120 @@ header {
 
 <header>
   <div class="logo">💊 Vitamin Shop</div>
-  <div class="cart-btn" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
+  <div class="cart-btn" onclick="toggleCart()">🛒 <span id="count">0</span></div>
 </header>
 
-<div class="catalog-menu">
-  <button onclick="showMain('vitamins')">Витамины</button>
+<div class="catalog-main">
+  <button onclick="showMain('vit')">Витамины</button>
   <button onclick="showMain('sport')">Спортпит</button>
 </div>
 
-<div class="submenu" id="vitamins-sub">
-  <button onclick="showProducts('a')">Витамин A</button>
-  <button onclick="showProducts('b')">Витамин B</button>
-  <button onclick="showProducts('d3')">Витамин D3</button>
+<div class="subcat" id="vit">
+  <button onclick="showProducts('A')">Витамин A</button>
+  <button onclick="showProducts('B')">Витамин B</button>
+  <button onclick="showProducts('C')">Витамин C</button>
+  <button onclick="showProducts('D3')">Витамин D3</button>
+  <button onclick="showProducts('E')">Витамин E</button>
 </div>
 
-<div class="submenu" id="sport-sub">
-  <button onclick="showProducts('protein')">Протеины</button>
-  <button onclick="showProducts('creatine')">Креатин</button>
+<div class="subcat" id="sport">
+  <button onclick="showProducts('Protein')">Протеины</button>
+  <button onclick="showProducts('Creatine')">Креатины</button>
+  <button onclick="showProducts('BCAA')">BCAA</button>
+  <button onclick="showProducts('Gainer')">Гейнеры</button>
 </div>
 
 <div class="promo">
-  Мы предоставляем витамины от производителей <b>NOW</b>, <b>Solgar</b>, <b>Aloe</b>
+  Мы предоставляем витамины от производителей NOW, Solgar, Regad
 </div>
 
 <div class="products" id="products"></div>
 
 <div id="cart">
-  <h3>Корзина</h3>
+  <h2>Корзина</h2>
   <div id="cartItems"></div>
+  <div class="total">Итого: <span id="total">0</span> ₽</div>
+  <button class="order-btn">Оформить заказ</button>
 </div>
 
 <script>
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let lastCat = localStorage.getItem("lastCat");
 
-const productData = {
-  a: ["Vitamin A NOW", "Vitamin A Solgar", "Vitamin A Aloe"],
-  b: ["Vitamin B NOW", "Vitamin B Solgar"],
-  d3: ["Vitamin D3 NOW", "Vitamin D3 Solgar"],
-  protein: ["Whey Protein", "Isolate Protein"],
-  creatine: ["Creatine Monohydrate"]
+const data = {
+  A:["Vitamin A NOW","Vitamin A Solgar","Vitamin A Regad"],
+  B:["Vitamin B Complex","Vitamin B Power"],
+  C:["Vitamin C Max","Vitamin C Pro"],
+  D3:["Vitamin D3 Ultra","Vitamin D3 Strong"],
+  E:["Vitamin E Regad","Vitamin E Soft"],
+  Protein:["Whey Protein","Isolate Protein"],
+  Creatine:["Creatine Mono","Creatine Pro"],
+  BCAA:["BCAA Energy","BCAA Max"],
+  Gainer:["Mass Gainer","Power Gainer"]
 };
 
-function showMain(type) {
-  document.getElementById("vitamins-sub").style.display = type === "vitamins" ? "flex" : "none";
-  document.getElementById("sport-sub").style.display = type === "sport" ? "flex" : "none";
+function showMain(id){
+  document.querySelectorAll(".subcat").forEach(s=>s.style.display="none");
+  document.getElementById(id).style.display="flex";
 }
 
-function showProducts(type) {
-  const box = document.getElementById("products");
-  box.innerHTML = "";
-  productData[type].forEach(p => {
-    box.innerHTML += `
+function showProducts(cat){
+  localStorage.setItem("lastCat",cat);
+  const box=document.getElementById("products");
+  box.innerHTML="";
+  data[cat].forEach(p=>{
+    box.innerHTML+=`
       <div class="card">
         <h4>${p}</h4>
         <p>Цена: 999 ₽</p>
-        <button onclick="addToCart('${p}')">Купить</button>
-      </div>
-    `;
+        <button onclick="add('${p}',999)">Купить</button>
+      </div>`;
   });
 }
 
-function addToCart(name) {
-  cart.push(name);
-  document.getElementById("cartCount").innerText = cart.length;
+function add(name,price){
+  cart.push({name,price,qty:1});
+  save();
+}
+
+function save(){
+  localStorage.setItem("cart",JSON.stringify(cart));
   renderCart();
 }
 
-function renderCart() {
-  const box = document.getElementById("cartItems");
-  box.innerHTML = "";
-  cart.forEach((c,i) => {
-    box.innerHTML += `<div class="cart-item">${c} <button onclick="remove(${i})">×</button></div>`;
+function renderCart(){
+  const box=document.getElementById("cartItems");
+  box.innerHTML="";
+  let total=0;
+  cart.forEach((i,idx)=>{
+    total+=i.price*i.qty;
+    box.innerHTML+=`
+      <div class="cart-item">
+        ${i.name}
+        <div class="qty">
+          <button onclick="chg(${idx},-1)">−</button>
+          ${i.qty}
+          <button onclick="chg(${idx},1)">+</button>
+        </div>
+      </div>`;
   });
+  document.getElementById("total").innerText=total;
+  document.getElementById("count").innerText=cart.length;
 }
 
-function remove(i) {
-  cart.splice(i,1);
-  document.getElementById("cartCount").innerText = cart.length;
-  renderCart();
+function chg(i,d){
+  cart[i].qty+=d;
+  if(cart[i].qty<=0)cart.splice(i,1);
+  save();
 }
 
-function toggleCart() {
-  const c = document.getElementById("cart");
-  c.style.display = c.style.display === "block" ? "none" : "block";
+function toggleCart(){
+  const c=document.getElementById("cart");
+  c.style.display=c.style.display==="flex"?"none":"flex";
 }
+
+renderCart();
+if(lastCat) showProducts(lastCat);
 </script>
 
 </body>
